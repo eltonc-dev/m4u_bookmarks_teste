@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  dbmongo:
+    image: mongo:3.4
+  api:
+    image : node:8.1
+    volumes:
+      - "./api:/api"
+    ports:
+      - "3000:3000"
+    command: bash -c "cd /api && npm install && npm run start"
