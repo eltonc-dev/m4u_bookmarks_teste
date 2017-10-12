@@ -2,7 +2,7 @@ module.exports = {
     getError(code , message ) {
         error = {
             code : code,
-            message: message? message : getMessage(code)
+            message: message? message : this.getMessage(code)
         }
         return error
     } ,

@@ -15,31 +15,32 @@ module.exports = (router) => {
             response.status(400).send(errorFactory.getError(400,"Informe uma senha e um usuário"));            
         }
 
-        User.find({ email:email }, function(err, users) {
-            if (err) {
-                response.status(400).send(errorFactory.getError(400,err));
-            } else {
-                let user = users[0];
-                if(user) {
-                    let result = user.checkPassword(password);
-                    if(result) {
-                        //crio um token de acesso
-                        let token = authJwt.createToken(user);
-                        let returnUser = {
-                            name:user.name,
-                            email:user.email,
-                            _id:user._id,
-                            token:token,
-                            created_at:user.created_at,
-                            admin:user.admin
+        User.findOne({email:email})
+            .select('+password')
+            .exec( function(err, user)  {
+                if (err) {
+                    response.status(400).send(errorFactory.getError(400,err));
+                } else {
+                    if(user) {
+                        let result = user.checkPassword(password);
+                        if(result) {
+                            //crio um token de acesso
+                            let token = authJwt.createToken(user);
+                            let returnUser = {
+                                name:user.name,
+                                email:user.email,
+                                _id:user._id,
+                                token:token,
+                                created_at:user.created_at,
+                                admin:user.admin
+                            }
+                            response.status(200).send(JSON.stringify( returnUser ));
+                        } else {
+                            response.status(400).send(errorFactory.getError(400,"Usuário e/ou senha inválidos"));
                         }
-                        response.status(200).send(JSON.stringify( returnUser ));
-                    } else {
-                        response.status(400).send(errorFactory.getError(400,"Usuário e/ou senha inválidos"));
                     }
                 }
-            }
-        });
+            })
     })
 
     return router

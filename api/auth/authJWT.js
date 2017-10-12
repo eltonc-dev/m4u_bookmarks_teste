@@ -4,6 +4,8 @@ const errorFactory = require('../models/error')
 module.exports = 
 {
     validateToken(request , response, next) {
+        response.setHeader('Content-Type', 'application/json');
+        
         console.log("Validate "+request.method+" | "+request.url);
         
         let token = request.headers['x-access-token'] || request.headers['authentication'];
