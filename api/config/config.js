@@ -8,7 +8,7 @@ module.exports = {
 
     //rotas que somente os Admins podem acessar
     privateRoutes : [
-        '/api/v1/users'
+        '[GET]:/api/v1/users'
     ]
 
 

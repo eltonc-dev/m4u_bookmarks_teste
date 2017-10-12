@@ -4,7 +4,9 @@ const errorFactory = require('./../models/error')
 module.exports = 
 {
     validateAccess(request , response, next) {
-        if( myConfig.privateRoutes.indexOf(request.originalUrl) < 0 ) {
+        
+        let route = `[${request.method}]:${request.originalUrl}`;
+        if( myConfig.privateRoutes.indexOf(route) < 0 ) {
             //rotas livres
             next() 
         } else {
