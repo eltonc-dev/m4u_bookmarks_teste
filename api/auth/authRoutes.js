@@ -11,9 +11,10 @@ module.exports =
             next() 
         } else {
             //rota permitida apenas para usuários admin
-            let userId = request.headers.authorization
-            if( userId ) {
-                User.findById( userId, (err, user) => {
+            let authorizationId = request.headers.authorization
+            let paramId = request.params.id
+            if( authorizationId ) {
+                User.findById( authorizationId, (err, user) => {
                     if( err || !user.isAdmin() ) {
                         response.status(401).send(responseMessageFactory.get(401))
                     } else {

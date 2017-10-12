@@ -8,7 +8,7 @@ module.exports = {
         
         User.find({}, (err, users) => {
             if (err) {
-                response.status(200).send( err )
+                response.status(200).send("Não foi possível listar os usuários")
             } else {
                 response.status(200).send( JSON.stringify(users) );
             }
@@ -36,6 +36,7 @@ module.exports = {
 
     //salva um novo usuário
     save(request , response) {
+
         let newUser = User({
             name: request.body.name,
             email: request.body.email,
@@ -58,7 +59,7 @@ module.exports = {
                         break
                 }
             } else {
-                response.status(201).send(responseMessageFactory.get(201,newUser))
+                response.status(201).send(newUser)
             }
           });
     } ,
@@ -90,7 +91,7 @@ module.exports = {
                         break
                 }
             } else {
-                response.status(200).send(responseMessageFactory.get(200,user));
+                response.status(200).send(user);
             }
         });
     } ,
@@ -103,7 +104,7 @@ module.exports = {
             if(err) {
                 response.status(400).send(responseMessageFactory.get(400, err));
             } else {
-                response.status(200).send(responseMessageFactory.get(200, user));
+                response.status(200).send(user);
             }
         })
     }

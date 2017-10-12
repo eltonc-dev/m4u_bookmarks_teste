@@ -6,10 +6,12 @@ module.exports = {
     // JWT 
     secret : "emequatrou",
 
-    //rotas que somente os Admins podem acessar
+    //rotas que necessitam de permissão para acessar
     privateRoutes : [
-        '[GET]:/api/v1/users'
+        //'[GET]:/api/v1/users',
     ]
+
+
 
 
 }

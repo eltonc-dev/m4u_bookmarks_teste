@@ -13,12 +13,17 @@ global.normalUserTest = {
     email:'signup@teste.com.br',
     password:'123123'
 }
+global.adminUserTest = { 
+    name:"Admin",
+    email:'admin@admin.com.br',
+    password:'admin'
+}
 
 global.authenticate = function ( callback ){
     request
         .post('/api/sign/in')
         .set('content-type','application/json')
-        .send({email:'pedro@email.com.br',password:'123123'})
+        .send({email:normalUserTest.email,password:normalUserTest.password})
         .end( function(err, res) {
             callback(err, res)
         })
@@ -28,7 +33,7 @@ global.authenticateAsAdmin = function ( callback ){
     request
         .post('/api/sign/in')
         .set('content-type','application/json')
-        .send({email:'admin@admin.com.br',password:'admin'})
+        .send({email:adminUserTest.email,password:adminUserTest.password})
         .end( function(err, res) {
             callback(err, res)
         })
