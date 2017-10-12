@@ -1,5 +1,5 @@
-var User = require('../models/user')
-const errorFactory = require('../models/error')
+var User = require('../models/user.model')
+const responseMessageFactory = require('../models/responseMessage.model')
 
 module.exports = {
     
@@ -22,12 +22,12 @@ module.exports = {
 
         User.findById( userId , (err, user) => {
             if (err) {
-                response.status(404).send( errorFactory.getError(404,'Usuário não encontrado') )
+                response.status(404).send( responseMessageFactory.get(404,'Usuário não encontrado') )
             } else {
                 if(user) {
                     response.status(200).send( JSON.stringify(user) );
                 } else {
-                    response.status(404).send( errorFactory.getError(404,'Usuário não encontrado') )
+                    response.status(404).send( responseMessageFactory.get(404,'Usuário não encontrado') )
                 }
                 
             }
@@ -47,18 +47,18 @@ module.exports = {
             if (err) {
                 switch(err.code) {
                     case 11000:
-                        response.status(400).send(errorFactory.getError(400,"Email já cadastrado"))
+                        response.status(400).send(responseMessageFactory.get(400,"Email já cadastrado"))
                         break
                     default:
                         if( err.name == "ValidationError" ) {
-                            response.status(400).send(errorFactory.getError(400,"Campos obrigatórios: name, email, password")) 
+                            response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: name, email, password")) 
                         } else {
-                            response.status(400).send(errorFactory.getError(401)) 
+                            response.status(400).send(responseMessageFactory.get(401)) 
                         }
                         break
                 }
             } else {
-                response.status(201).send(errorFactory.getError(201,newUser))
+                response.status(201).send(responseMessageFactory.get(201,newUser))
             }
           });
     } ,
@@ -79,18 +79,18 @@ module.exports = {
             if (error) {
                 switch(error.code) {
                     case 11000:
-                        response.status(400).send(errorFactory.getError(400,"Email já cadastrado"))
+                        response.status(400).send(responseMessageFactory.get(400,"Email já cadastrado"))
                         break
                     default:
                         if( error.name == "ValidationError" ) {
-                            response.status(400).send(errorFactory.getError(400,"Campos obrigatórios: name, email, password")) 
+                            response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: name, email, password")) 
                         } else {
-                            response.status(400).send(errorFactory.getError(401)) 
+                            response.status(400).send(responseMessageFactory.get(401)) 
                         }
                         break
                 }
             } else {
-                response.status(200).send(errorFactory.getError(200,user));
+                response.status(200).send(responseMessageFactory.get(200,user));
             }
         });
     } ,
@@ -101,9 +101,9 @@ module.exports = {
         
         User.findByIdAndRemove( userId , (err , user) => {
             if(err) {
-                response.status(400).send(errorFactory.getError(400, err));
+                response.status(400).send(responseMessageFactory.get(400, err));
             } else {
-                response.status(200).send(errorFactory.getError(200, user));
+                response.status(200).send(responseMessageFactory.get(200, user));
             }
         })
     }

@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  name: String,
+  name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true , select: false },
   admin: { type: Boolean, default:false },
@@ -15,7 +15,7 @@ var userSchema = new Schema({
 
 userSchema.pre('save', function(next) {
   
-  var currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
+  var currentDate = moment();
   
   if (!this.created_at)
     this.created_at = currentDate;

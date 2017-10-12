@@ -1,5 +1,5 @@
 module.exports = {
-    getError(code , message ) {
+    get(code , message ) {
         error = {
             code : code,
             message: message? message : this.getMessage(code)

@@ -1,5 +1,5 @@
-const User  = require('./../models/user')
-const errorFactory = require('./../models/error')
+const User  = require('./../models/user.model')
+const responseMessageFactory = require('./../models/responseMessage.model')
 
 module.exports = 
 {
@@ -15,13 +15,13 @@ module.exports =
             if( userId ) {
                 User.findById( userId, (err, user) => {
                     if( err || !user.isAdmin() ) {
-                        response.status(401).send(errorFactory.getError(401))
+                        response.status(401).send(responseMessageFactory.get(401))
                     } else {
                         next()
                     }
                 })
             } else {
-                response.status(401).send(errorFactory.getError(401))
+                response.status(401).send(responseMessageFactory.get(401))
             }
         }
     }

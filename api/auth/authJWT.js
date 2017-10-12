@@ -1,5 +1,5 @@
 const jsonwebtoken = require('jsonwebtoken')
-const errorFactory = require('../models/error')
+const responseMessageFactory = require('../models/responseMessage.model')
 
 module.exports = 
 {
@@ -11,7 +11,7 @@ module.exports =
         let token = request.headers['x-access-token'] || request.headers['authentication'];
         
         if(!token) {
-            response.status(401).send(errorFactory.getError(401));
+            response.status(401).send(responseMessageFactory.get(401));
         } else {
             //console.log(secret);
             jsonwebtoken.verify(token, myConfig.secret , (error, decoded) => {
@@ -19,7 +19,7 @@ module.exports =
                     next();
                 } else {
                     if(error.name = "TokenExpiredError") error = "Token expirou"
-                    response.status(401).send(errorFactory.getError(401,error));
+                    response.status(401).send(responseMessageFactory.get(401,error));
                 }
             })
         }
