@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 var userSchema = new Schema({
   name: String,
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true , select: false },
   admin: { type: Boolean, default:false },
   created_at: Date
 
@@ -33,6 +33,9 @@ userSchema.methods.checkPassword = function(pass) {
   return bcrypt.compareSync(pass,this.password);
 }
 
+userSchema.methods.isAdmin = function(){
+  return this.admin
+}
 
 // Criando o model User
 var User = mongoose.model('User', userSchema);
