@@ -4,17 +4,20 @@ module.exports = {
     
     //Lista todos os usuários
     index(request, response) {
-        User.find({}, function(err, users) {
+        response.setHeader('Content-Type', 'application/json');
+
+        User.find({}, (err, users) => {
             if (err) {
-                response.status(200).send(err)
+                response.status(200).send( err )
             } else {
-                response.status(200).send(JSON.stringify(users));
+                response.status(200).send( JSON.stringify(users) );
             }
-        });
+        }); 
     }  ,
 
     //Mostra informações de um único usuário
     findById(request, response) {
+        response.setHeader('Content-Type', 'application/json');
         response.send('{}')
     } ,
 
@@ -33,18 +36,19 @@ module.exports = {
                 response.status(401).send(err)
             } else {
                 response.status(200).send(newUser)
+                console.log("saved")
             }
           });
     } ,
 
     // atualiza um novo usuário
     update(request, response) {
-
+        response.send("Atualizado")
     } ,
 
     //deleta um usuário
     delete(request, response) {
-
+        response.send("Deletado")
     }
 
 }
