@@ -66,3 +66,72 @@ describe("Criação de novo cadastro e Login " , function(){
     })
 
 });
+
+describe("Consultando recursos sem autenticação" , function() {
+    describe("Usuários" , function() {
+        it("[ GET ] /api/v1/users" , function( done ) {
+            request
+                .get('/api/v1/users')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+
+        it("[ GET ] /api/v1/users/:id" , function( done ) {
+            request
+                .get('/api/v1/users/123')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+
+        it("[ POST ] /api/v1/users" , function( done ) {
+            request
+                .post('/api/v1/users')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+
+        it("[ PUT ] /api/v1/users/:id" , function( done ) {
+            request
+                .put('/api/v1/users/123')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+
+        it("[ DELETE ] /api/v1/users/:id" , function( done ) {
+            request
+                .delete('/api/v1/users/123')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+    })
+})

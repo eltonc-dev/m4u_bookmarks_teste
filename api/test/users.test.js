@@ -1,5 +1,75 @@
 
 describe("Rotas de usuários" , function(){
+    describe("Consultando recursos sem autenticação devem retornar erro 401 " , function() {
+        it("[ GET ] /api/v1/users" , function( done ) {
+            request
+                .get('/api/v1/users')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+
+        it("[ GET ] /api/v1/users/:id" , function( done ) {
+            request
+                .get('/api/v1/users/123')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+
+        it("[ POST ] /api/v1/users" , function( done ) {
+            request
+                .post('/api/v1/users')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+
+        it("[ PUT ] /api/v1/users/:id" , function( done ) {
+            request
+                .put('/api/v1/users/123')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+
+        it("[ DELETE ] /api/v1/users/:id" , function( done ) {
+            request
+                .delete('/api/v1/users/123')
+                .set('content-type','application/json')
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+    })
+
+
+
+
     var userTest = {
         name:"Usuário teste",
         email:"email@teste.com.br",
@@ -19,32 +89,6 @@ describe("Rotas de usuários" , function(){
                     done()
                 });
         })
-
-        /*it('Mensagem de erro, usuário autenticado porém sem permissão de admin', function(done) {
-
-            authenticate( function(err,res) {
-                expect(err).to.be.null
-                expect(res).to.have.status(200)
-                expect(res.body).to.have.property('name')
-                expect(res.body).to.have.property('email')
-                expect(res.body).to.have.property('_id')
-                expect(res.body).to.have.property('token')
-                var token = res.body.token
-                var userId = res.body._id
-                request
-                    .get('/api/v1/users')
-                    .set('content-type','application/json')
-                    .set('authentication',token)
-                    .set('authorization',userId)
-                    .end( function(usersErro, usersRes) {
-                        expect(usersErro).to.be.not.null
-                        expect(usersRes).to.have.status(401)
-                        expect(usersRes.body).to.have.property('code')
-                        expect(usersRes.body.code).to.equal(401)
-                        done()
-                    })
-            })
-        })*/
 
         it('Listar todos os usuários', function(done) {
             
@@ -73,6 +117,20 @@ describe("Rotas de usuários" , function(){
     })
 
     describe ("[ POST ] api/v1/users" , function() {
+        it('Falha ao cadastrar : sem autenticação ' ,function(done) {    
+            request
+                .post('/api/v1/users')
+                .set('content-type','application/json')
+                .send(userTest)
+                .end( function(usersErro, usersRes) {
+                    expect(usersErro).to.be.not.null
+                    expect(usersRes).to.have.status(401)
+                    expect(usersRes.body).to.have.property("code")
+                    expect(usersRes.body.code).to.be.equal(401)
+                    done()
+                })
+        })
+
         it('Cadastra um novo usuário' ,function(done) {
             authenticate( function(err,res) {
                 expect(err).to.be.null
@@ -177,7 +235,7 @@ describe("Rotas de usuários" , function(){
     describe("[ DELETE ] api/v1/users/:id", function(){
         it('Deleta um usuario', function(done) {
             
-            authenticateAsAdmin( function(err,res) {
+            authenticate( function(err,res) {
                 expect(err).to.be.null
                 expect(res).to.have.status(200)
                 expect(res.body).to.have.property('name')

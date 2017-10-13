@@ -15,6 +15,7 @@ mongoose.Promise = global.Promise
 //carregando as rotas
 var authRoute = require('./../routes/auth')
 var userRoute = require('./../routes/user')
+var bookmarksRoute = require('./../routes/bookmark')
 
 //Inicio o express
 const app = express()
@@ -31,6 +32,7 @@ app.all('/api/*',[authJWT.validateToken , authRoutes.validateAccess ]);
 
 //iniciando as rotas de API
 app.use('/api/v1/',userRoute(router))
+app.use('/api/v1/',bookmarksRoute(router))
 
 
 module.exports =  app
