@@ -38,3 +38,26 @@ def delete(id):
         return redirect(url_for('auth.index', error=error)) 
 
     return redirect(url_for('auth.index'))
+
+@bookmark_blueprint.route("/bookmark/edit/<id>", methods=["GET","POST"])
+def edit(id):
+    
+    if request.method == "GET":
+        return redirect(url_for('auth.index'))
+    
+    info = request.form
+    bookmark = {
+        'owner':info['bookmark-owner'],
+        'name':info['bookmark-name'],
+        'url':info['bookmark-url']
+    }
+
+    res = requests.put('http://api:3000/api/v1/bookmarks/'+id , data=bookmark)
+
+    print(res)
+    if res.status_code != 200:
+        error = res.json()['message']
+        return redirect(url_for('auth.index', error=error)) 
+
+    return redirect(url_for('auth.index'),data=u"algo")
+    
