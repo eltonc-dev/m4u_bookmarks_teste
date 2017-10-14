@@ -1,53 +1,89 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="row">
-        <nav>
-                {{user.name}}
-                <div class="col-xs-12 col-md-4 pull-right">
-                    {% if user.admin == true %}
-                    <a href="">Admin</a>
-                    {% endif %}
-                    <a href="{{url_for('auth.signOut')}}">Sair</a>
-                </div>
-        </nav>
-    </div>
-  
-    <div class="row">
-        <form role="form" class="form" action="{{url_for('bookmark.create')}}" method="post" >
-            <div class="col-md-10">
-                <input type="hidden" name="bookmark-owner" value="{{user._id}}">
-                <input type="text" name="bookmark-name" class="form-control" placeholder="Meu bookmark">
-                <input type="text" name="bookmark-url" class="form-control" placeholder="http://meusitepreferido.com.br">
+
+    <div class="container-fluid header">
+        <header>
+            <div class="col-xs-12 col-md-6">
+                <h1 class="primary-color upper"><i class="glyphicon glyphicon-bookmark"></i> My Bookmarks</h1>
             </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn primary-color-bkg btn-block">Cadastrar</button>
+            <div class="col-xs-12 col-md-6 tertiary-color">
+                    <nav class="nav-top-links text-right">
+                        <div class="user-logged"><i class="glyphicon glyphicon-user"></i> {{user.name}}</div>
+                        {% if user.admin == true %}
+                        <a href="" class="admin"> <i class="glyphicon glyphicon-lock"></i> Area Administrativa</a>
+                        {% endif %}
+                        <a class="" href="{{url_for('auth.signOut')}}"><i class="glyphicon glyphicon-log-out"></i> Sair</a>
+                    </nav>
             </div>
-        </form>
+        </header> 
     </div>
-    <div class="row">
-        <div class="bookmark-list">
-            <ul id="acordion" role="tablist" aria-multiselectable="false" >
-                {% for bookmark in bookmarkList %}
-                    <li>
-                        <a href="{{bookmark.url}}" target="_blank">{{bookmark.name}}</a>
-                        <a class="btn btn-primary " role="button" data-toggle="collapse" data-parent="#accordion" href="#{{bookmark._id}}" aria-expanded="true" aria-controls="{{bookmark._id}}"  >editar</a>
-                        <a  class="btn btn-danger" href="{{url_for('bookmark.delete', id=bookmark._id)}}">deletar</a>
-                        <div class="panel-collapse  collapse" id="{{bookmark._id}}" role="tabpanel"  role="tabpanel" >
-                            <form action="{{url_for('bookmark.edit', id=bookmark._id)}}" method="post" >
-                                <input type="hidden" name="bookmark-owner" value="{{bookmark.owner}}">
-                                <input type="text" name="bookmark-name" value="{{bookmark.name}}" >
-                                <input type="text" name="bookmark-url" value="{{bookmark.url}}" >
-                                <div> <a class="btn btn-cancel" data-toggle="collapse" href="#{{bookmark._id}}" aria-expanded="false" aria-controls="collapseExample" >Cancelar</a> </div>
-                                <div> <button type="submit" class="btn btn-primary" >Salvar</button> </div>
-                            </form>
+
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-xs-12">
+                            <h4 class="tertiary-color upper"><i class="glyphicon glyphicon-bookmark"></i> Novo bookmark</h4>
+                    </div>
+                    <form role="form" class="form" action="{{url_for('bookmark.create')}}" method="post" >
+                        <input type="hidden" name="bookmark-owner" value="{{user._id}}">
+                            
+                        <div class="col-xs-12 col-md-6 vertical-space">
+                            <input type="text" name="bookmark-name" class="form-control" placeholder="Digite uma nome para o bookmark">
                         </div>
-                    </li>
-                {% endfor %}
-                {% if bookmarkList|length == 0 %}
-                <li>Não perca mais tempo, cadastre já seu primeiro bookmark</li>
-                {% endif %}
-            </ul>
+                        <div class="col-xs-12 col-md-6 vertical-space">
+                                <input type="text" name="bookmark-url" class="form-control" placeholder="http://minhaurlfavorita.com.br">
+                        </div>
+                        <div class="col-md-2 vertical-space ">
+                            <button type="submit" class="btn primary-color-bkg btn-block">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="col-xs-12 list bookmar-list" id="accordion" role="tablist" aria-multiselectable="true">
+                        {% for bookmark in bookmarkList %}
+                        <li class="col-xs-12 bookmark-item">
+                            <div class="" role="tab" id="item-{{bookmark._id}}">
+                                <div class="col-xs-12 col-md-8 bookmark-item-title upper tertiary-color"><a class="tertiary-color" href="{{bookmark.url}}" target="_blank" ><i class="glyphicon glyphicon-link"></i> {{bookmark.name}}</a></div>
+                                <div class="col-xs-12 col-md-4 bookmark-item-actions text-right">
+                                    <span class="action-item"><a class="primary-color" role="button" data-toggle="collapse" data-parent="#accordion" href="#acordion-{{bookmark._id}}" aria-expanded="true" aria-controls="acordion-{{bookmark._id}}"><i class="glyphicon glyphicon-pencil"></i></a></span>
+                                    <span class="action-item"><a class="text-danger" href="{{url_for('bookmark.delete', id=bookmark._id)}}"><i class="glyphicon glyphicon-trash"></i></a></span>
+                                </div>
+                            </div>
+                            <div id="acordion-{{bookmark._id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="item-{{bookmark._id}}">
+                                <div class="">
+                                    <form role="form" class="form" action="{{url_for('bookmark.edit', id=bookmark._id)}}" method="post" >
+                                        <input type="hidden" name="bookmark-owner" value="{{bookmark.owner}}">
+                                            
+                                        <div class="col-xs-12 col-md-6 vertical-space">
+                                            <input type="text" name="bookmark-name" class="form-control" placeholder="Digite uma nome para o bookmark" value="{{bookmark.name}}">
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 vertical-space">
+                                                <input type="text" name="bookmark-url" class="form-control" placeholder="http://minhaurlfavorita.com.br" value="{{bookmark.url}}">
+                                        </div>
+                                        <div class="col-md-2 vertical-space ">
+                                            <button type="submit" class="btn primary-color-bkg btn-block">Salvar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% if bookmarkList|length == 0 %}
+                    <h2 class="text-center tertiary-color">Não perca mais tempo, cadastre já seu primeiro bookmark acima <i class="glyphicon glyphicon-hand-up"></i></h2>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
+    
+  
+    
         
 {% endblock %}
