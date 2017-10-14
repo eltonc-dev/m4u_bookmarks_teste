@@ -1,1 +1,18 @@
-erro 500
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <h1 class="primary-color upper"><i class="glyphicon glyphicon-bookmark"></i> My Bookmarks</h1>
+    </div>
+    <div class="middle-box text-center animated fadeInDown">
+        <h2 class="tertiary-color upper">Ops...</h2>
+        <h1 class="primary-color upper">500</h1>
+        <div class="error-desc">
+            Parece que algum erro ocorreu por aqui. <br>
+            Tente novamente mais tarde ou utilize o botão de voltar, para ir para o início.
+        </div>
+        <a  class="btn  primary-color-bkg" href="{{url_for('auth.index')}}" class="btn btn-primary">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}

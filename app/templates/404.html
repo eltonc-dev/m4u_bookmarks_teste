@@ -1,1 +1,17 @@
-404
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <h1 class="primary-color upper"><i class="glyphicon glyphicon-bookmark"></i> My Bookmarks</h1>
+    </div>
+    <div class="middle-box text-center animated fadeInDown">
+        <h2 class="tertiary-color upper">Página não encontrada</h2>
+        <h1 class="primary-color upper">404</h1>
+        <div class="error-desc">
+            Infelizmente não pudemos encontrar a página que você está procurando. <br>Utilize o botão de voltar para ir para o inínio.
+        </div>
+        <a  class="btn  primary-color-bkg" href="{{url_for('auth.index')}}" class="btn btn-primary">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}

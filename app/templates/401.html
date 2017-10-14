@@ -1,1 +1,19 @@
-acess negato
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <h1 class="primary-color upper"><i class="glyphicon glyphicon-bookmark"></i> My Bookmarks</h1>
+    </div>
+    <div class="middle-box text-center animated fadeInDown">
+        <h2 class="textiary-color upper">Acesso negado</h2>
+        <h1 class="primary-color upper">401</h1>
+        <div class="error-desc">
+            Hum... <br>
+            Parece que você não tem acesso a esse conteúdo.
+            Tente se logar novamente ou fale com um dos administradores.
+        </div>
+        <a  class="btn  primary-color-bkg" href="{{url_for('auth.login')}}" class="btn btn-primary">Ir para Login</a>
+    </div>
+</div>
+
+{% endblock %}
