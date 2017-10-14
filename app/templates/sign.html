@@ -4,6 +4,11 @@
         <h1 class="primary-color upper">Bookmarks App</h1>
         <h2 class="tertiary-color upper" >Gerenciar suas URLs favoritas nunca foi tão fácil</h2>
     </div>
+    {% if message != '' and message is defined %}
+    <div class="alert alert-danger text-center">
+        {{ message }}
+    </div>
+    {% endif %}
     <div class="row register">
         <div class="col-xs-12 col-sm-4">
             <div class="form-box">

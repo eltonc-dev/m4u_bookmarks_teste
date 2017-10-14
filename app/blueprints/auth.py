@@ -1,5 +1,6 @@
-import requests
+from ..util.myRequest import MyRequest
 import json
+import requests
 from flask import Flask , request, session , render_template , Blueprint, redirect , url_for
 
 auth_blueprint = Blueprint('auth', __name__)
@@ -7,19 +8,26 @@ auth_blueprint = Blueprint('auth', __name__)
 @auth_blueprint.route("/", methods=["GET"])
 def index():
     if session.get('logged_user') is None:
-        return render_template('sign.html')
+        return redirect(url_for('auth.login')) 
 
     user = json.loads(session['logged_user'])
-    bookmarkList = json.loads('[{"name":"boookmark1","url":"http://google.com"}]')    
 
     # listando os bookmarks do usuário
-    res = requests.get('http://api:3000/api/users/'+user['_id']+'/bookmarks')
+    #res = requests.get('http://api:3000/api/v1/users/'+user['_id']+'/bookmarks')
+
+    res = MyRequest.get('/v1/users/'+user['_id']+'/bookmarks')
     if res.status_code == 200:
         bookmarkList = res.json()
     else:
         bookmarkList = json.loads('[]')
 
     return render_template('home.html' , user=user , bookmarkList=bookmarkList )
+
+@auth_blueprint.route("/login", methods=["GET"])
+def login():
+    message = request.args.get('m')
+    return render_template('sign.html', message=message)
+
 
 @auth_blueprint.route("/sign/in", methods=["GET", "POST"])
 def signIn():
@@ -33,6 +41,10 @@ def signIn():
     }
 
     res = requests.post('http://api:3000/api/sign/in', data=user)
+    print("rest normal")
+    print(res)
+
+    #res = MyRequest.post('/sign/in', user)
     if res.status_code == 200:
         loggedUser = res.json()
         if loggedUser['token'] is not None:
@@ -54,7 +66,8 @@ def signUp():
         'email':info['user-email'],
         'password':info['user-password']
     }
-    res = requests.post('http://api:3000/api/sign/up', data=user)
+    #res = requests.post('http://api:3000/api/sign/up', data=user)
+    res = MyRequest.post('/sign/up',user)
     if res.status_code == 201:
         loggedUser = res.json()
         if loggedUser['token'] is not None:

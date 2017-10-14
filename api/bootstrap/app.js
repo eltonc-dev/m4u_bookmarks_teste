@@ -28,7 +28,7 @@ router.use(bodyParser.json());
 app.use('/api/',authRoute(router))
 
 //setando middlewares de validação
-//app.all('/api/*',[authJWT.validateToken , authRoutes.validateAccess ]);
+app.all('/api/*',[authJWT.validateToken , authRoutes.validateAccess ]);
 
 //iniciando as rotas de API
 app.use('/api/v1/',userRoute(router))
