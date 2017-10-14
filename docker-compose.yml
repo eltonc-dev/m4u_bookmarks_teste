@@ -5,13 +5,18 @@ services:
     image: mongo:3.4
   api:
     image : node:8.1
+    depends_on:
+      - dbmongo
     volumes:
       - "./api:/api"
     command: bash -c "cd /api && npm install && npm run start"
+    
   app:
     build: ./app
     volumes:
       - ./app:/app
+    depends_on:
+      - api
     ports:
       - "80:80"
     environment:

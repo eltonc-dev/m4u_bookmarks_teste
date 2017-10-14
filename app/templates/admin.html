@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="container-fluid header">
+        <header>
+            <div class="col-xs-12 col-md-6">
+                <h1 class="primary-color upper"><i class="glyphicon glyphicon-bookmark"></i> My Bookmarks</h1>
+            </div>
+            <div class="col-xs-12 col-md-6 tertiary-color">
+                    <nav class="nav-top-links text-right">
+                        <div class="user-logged"><i class="glyphicon glyphicon-user"></i> {{user.name}}</div>
+                        <a class="admin" href="{{url_for('auth.index')}}"> <i class="glyphicon glyphicon-bookmark"></i> Minha Área</a>
+                        <a class="" href="{{url_for('auth.signOut')}}"><i class="glyphicon glyphicon-log-out"></i> Sair</a>
+                    </nav>
+            </div>
+        </header> 
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-xs-12">
+                        <h4 class="tertiary-color upper"><i class="glyphicon glyphicon-bookmark"></i> Filtrar bookmarks por usuário </h4>
+                    </div>
+                    <form role="form" class="form" action="{{url_for('bookmark.create')}}" method="post" >
+                        <div class="col-xs-12 col-md-6 vertical-space">
+                            <select name="mybookemark-user" id="mybookemark-user" class="form-control">
+                                <option value="">Escolha um usuário </option>
+                                {% for user in userList %}
+                                <option value="{{user._id}}">{{user.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2 vertical-space ">
+                            <button type="submit" class="btn primary-color-bkg btn-block">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        {% if user is defined %}
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="col-xs-12 list bookmar-list" id="accordion" role="tablist" aria-multiselectable="true">
+                        {% for bookmark in bookmarkList %}
+                        <li class="col-xs-12 bookmark-item">
+                            <div class="" role="tab" id="item-{{bookmark._id}}">
+                                <div class="col-xs-12 col-md-8 bookmark-item-title upper tertiary-color"><a class="tertiary-color" href="{{bookmark.url}}" target="_blank" ><i class="glyphicon glyphicon-link"></i> {{bookmark.name}}</a></div>
+                                <div class="col-xs-12 col-md-4 bookmark-item-actions text-right">
+                                    <span class="action-item"><a class="primary-color" role="button" data-toggle="collapse" data-parent="#accordion" href="#acordion-{{bookmark._id}}" aria-expanded="true" aria-controls="acordion-{{bookmark._id}}"><i class="glyphicon glyphicon-pencil"></i></a></span>
+                                    <span class="action-item"><a class="text-danger" href="{{url_for('bookmark.delete', id=bookmark._id)}}"><i class="glyphicon glyphicon-trash"></i></a></span>
+                                </div>
+                            </div>
+                            <div id="acordion-{{bookmark._id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="item-{{bookmark._id}}">
+                                <div class="">
+                                    <form role="form" class="form" action="{{url_for('bookmark.edit', id=bookmark._id)}}" method="post" >
+                                        <input type="hidden" name="bookmark-owner" value="{{bookmark.owner}}">
+                                            
+                                        <div class="col-xs-12 col-md-6 vertical-space">
+                                            <input type="text" name="bookmark-name" class="form-control" placeholder="Digite uma nome para o bookmark" value="{{bookmark.name}}">
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 vertical-space">
+                                                <input type="text" name="bookmark-url" class="form-control" placeholder="http://minhaurlfavorita.com.br" value="{{bookmark.url}}">
+                                        </div>
+                                        <div class="col-md-2 vertical-space ">
+                                            <button type="submit" class="btn primary-color-bkg btn-block">Salvar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% if bookmarkList|length == 0 %}
+                    <h2 class="text-center tertiary-color">{{user}} ainda não cadastrou nenhum bookmark</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>   
+{% endblock %}

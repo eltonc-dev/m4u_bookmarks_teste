@@ -51,7 +51,8 @@ module.exports = {
         let newUser = User({
             name: request.body.name,
             email: request.body.email,
-            password: request.body.password
+            password: request.body.password,
+            admin : request.body.admin? request.body.admin: false
           });
           
           // save the user

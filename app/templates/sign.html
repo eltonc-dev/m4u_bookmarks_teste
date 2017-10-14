@@ -56,7 +56,11 @@
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="user-password">Senha</label>
-                                <input type="text" name="user-password" placeholder="Digite uma senha" class="user-password form-control" id="user-password">
+                                <input type="password" name="user-password" placeholder="Digite uma senha" class="user-password form-control" id="user-password">
+                            </div>
+                            <div class="form-group">
+                                <label class=" tertiary-color" for="user-admin">Deseja ser um Administrador?</label>
+                                <input type="checkbox" name="user-admin" class="" id="user-admin" />
                             </div>
                             {% if signUpError is defined  %}
                             <div class="alert alert-danger text-center">

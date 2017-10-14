@@ -62,7 +62,8 @@ def signUp():
     user = {
         'name':info['user-name'],
         'email':info['user-email'],
-        'password':info['user-password']
+        'password':info['user-password'],
+        'admin':info['user-admin']
     }
     #res = requests.post('http://api:3000/api/sign/up', data=user)
     res = MyRequest.post('/sign/up',user)
