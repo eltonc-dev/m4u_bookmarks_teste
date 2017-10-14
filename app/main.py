@@ -1,5 +1,6 @@
 from flask import Flask , render_template, Session
 from .blueprints.auth import auth_blueprint
+from .blueprints.bookmark  import bookmark_blueprint
 
 app = Flask(__name__)
 sess = Session()
@@ -15,6 +16,7 @@ def page_not_found(e):
     return render_template('500.html'), 500
 
 app.register_blueprint(auth_blueprint)
+app.register_blueprint(bookmark_blueprint)
  
 
 if __name__ == "__main__":

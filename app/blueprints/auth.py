@@ -10,8 +10,16 @@ def index():
         return render_template('sign.html')
 
     user = json.loads(session['logged_user'])
-        
-    return render_template('home.html' , user=user )
+    bookmarkList = json.loads('[{"name":"boookmark1","url":"http://google.com"}]')    
+
+    # listando os bookmarks do usuário
+    res = requests.get('http://api:3000/api/users/'+user['_id']+'/bookmarks')
+    if res.status_code == 200:
+        bookmarkList = res.json()
+    else:
+        bookmarkList = json.loads('[]')
+
+    return render_template('home.html' , user=user , bookmarkList=bookmarkList )
 
 @auth_blueprint.route("/sign/in", methods=["GET", "POST"])
 def signIn():
