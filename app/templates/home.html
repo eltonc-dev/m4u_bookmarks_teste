@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+  <nav>
+      {{user.name}}
+      <div class="col-xs-12 col-md-4 pull-right">
+          {% if user.admin == true %}
+          <a href="">Admin</a>
+          {% endif %}
+          <a href="{{url_for('auth.signOut')}}">Sair</a>
+      </div>
+  </nav>
+{% endblock %}

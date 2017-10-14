@@ -18,14 +18,14 @@
                 <div class="form-bottom">
                     <form role="form" action="{{url_for('auth.signIn')}}" method="post" class="login-form">
                         <div class="form-group">
-                            <label class="sr-only" for="form-email">Email</label>
-                            <input type="text" name="form-email" placeholder="Digite seu email" class="form-email form-control" id="form-email">
+                            <label class="sr-only" for="user-email">Email</label>
+                            <input type="text" name="user-email" placeholder="Digite seu email" class="user-email form-control" id="user-email">
                         </div>
                         <div class="form-group">
-                            <label class="sr-only" for="form-password">Senha</label>
-                            <input type="password" name="form-password" placeholder="Digite sua senha" class="form-password form-control" id="form-password">
+                            <label class="sr-only" for="user-password">Senha</label>
+                            <input type="password" name="user-password" placeholder="Digite sua senha" class="user-password form-control" id="user-password">
                         </div>
-                        {% if signInError != None %}
+                        {% if signInError is defined %}
                             <div class="alert alert-danger text-center">
                                 {{ signInError }}
                             </div>
@@ -63,7 +63,7 @@
                             <label class="sr-only" for="user-password">Senha</label>
                             <input type="text" name="user-password" placeholder="Digite uma senha" class="user-password form-control" id="user-password">
                         </div>
-                        {% if signUpError != None and signUpError != '' %}
+                        {% if signUpError is defined  %}
                         <div class="alert alert-danger text-center">
                             {{ signUpError }}
                         </div>

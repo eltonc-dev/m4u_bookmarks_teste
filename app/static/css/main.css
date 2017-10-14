@@ -1,0 +1,50 @@
+/* congfigurações gerais */
+.primary-color-bkg { background: #009EE2; }
+.secondary-color-bkg { background: #000000; }
+.tertiary-color-bkg { background: #758697; }
+
+.primary-color { color: #009EE2; }
+.secondary-color { color: #000000; }
+.tertiary-color { color: #758697; }
+
+body {
+  background: #F8F9FA;
+}
+
+h3 {
+  text-transform: uppercase;
+  margin: 0px 0px 15px 0px;
+  text-align: center;
+  padding: 5px 0px;
+  border-bottom: 2px solid #009ee2;
+}
+
+.btn {
+  border-radius: 0px;
+  text-transform: uppercase;
+  color: white;
+  -webkit-transition: all 2s;
+  transition: all .5s;
+}
+.alert {
+  transition: all 1s;
+}
+.form-box { padding: 10px; }
+
+.upper {
+  text-transform: uppercase;
+}
+
+
+/* Tela de registro */
+.register {
+  
+}
+.sign-up-form-box {
+  background: white;
+  border-bottom: 2px solid #758697;
+}
+.register .btn:hover {  
+  color: white;
+  background: rgb(3, 114, 161)
+}
