@@ -1,83 +1,72 @@
 {% extends "layout.html" %}
 {% block content %}    
     <div class="row text-center">
-        <h1 class="primary-color upper">Bookmarks App</h1>
-        <h2 class="tertiary-color upper" >Gerenciar suas URLs favoritas nunca foi tão fácil</h2>
+        <h1></h1>
+        <h1 class="primary-color upper"><i class="glyphicon glyphicon-bookmark"></i> My Bookmarks</h1>
+        <h3 class="tertiary-color upper" >Gerenciar suas URLS favoritas nunca foi tão fácil</h3>
     </div>
-    {% if message != '' and message is defined %}
-    <div class="alert alert-danger text-center">
-        {{ message }}
-    </div>
-    {% endif %}
     <div class="row register">
-        <div class="col-xs-12 col-sm-4">
-            <div class="form-box">
-                <div class="form-top">
-                    <div class="form-top-left">
-                        <h3>Faça seu login</h3>
-                    </div>
-                    <div class="form-top-right">
-                        <i class="fa fa-lock"></i>
-                    </div>
-                </div>
-                <div class="form-bottom">
-                    <form role="form" action="{{url_for('auth.signIn')}}" method="post" class="login-form">
-                        <div class="form-group">
-                            <label class="sr-only" for="user-email">Email</label>
-                            <input type="text" name="user-email" placeholder="Digite seu email" class="user-email form-control" id="user-email">
+            <div class="middle-box">
+                <div class="form-box">
+                    <div class="form-top">
+                        <div class="form-top-right">
+                            <i class="fa fa-lock"></i>
                         </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="user-password">Senha</label>
-                            <input type="password" name="user-password" placeholder="Digite sua senha" class="user-password form-control" id="user-password">
-                        </div>
-                        {% if signInError is defined %}
-                            <div class="alert alert-danger text-center">
-                                {{ signInError }}
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="{{url_for('auth.signIn')}}" method="post" class="login-form">
+                            <div class="form-group">
+                                <label class="sr-only" for="user-email">Email</label>
+                                <input type="email" name="user-email" placeholder="Digite seu email" class="user-email form-control" id="user-email">
                             </div>
-                        {% endif %}
-                        <button type="submit" class="btn btn-block primary-color-bkg ">Entrar</button>
-                    </form>
-                </div>
-            </div>    
-        </div>
-        
-        <div class=" col-xs-12 col-sm-3 text-center"></div>
-            
-        <div class="col-xs-12 col-sm-5">
-            
-            <div class="form-box sign-up-form-box">
-                <div class="form-top">
-                    <div class="form-top-left">
-                        <h3>Cadastre-se</h3>
-                    </div>
-                    <div class="form-top-right">
-                        <i class="fa fa-pencil"></i>
+                            <div class="form-group">
+                                <label class="sr-only" for="user-password">Senha</label>
+                                <input type="password" name="user-password" placeholder="Digite sua senha" class="user-password form-control" id="user-password">
+                            </div>
+                            {% if signInError is defined %}
+                                <div class="alert alert-danger text-center">
+                                    {{ signInError }}
+                                </div>
+                            {% endif %}
+                            <button type="submit" class="btn btn-block primary-color-bkg ">Logar</button>
+                        </form>
                     </div>
                 </div>
-                <div class="form-bottom">
-                    <form role="form" action="{{url_for('auth.signUp')}}" method="post" class="registration-form">
-                        <div class="form-group">
-                            <label class="sr-only" for="user-name">Nome</label>
-                            <input type="text" name="user-name" placeholder="Digite seu nome " class="user-name form-control" id="user-name">
+                <div class="text-center tertiary-color label-register">ainda não tem cadastro?</div>
+                <div class="form-box ">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h4 class="text-center upper">Cadastre-se</h4>
+                            <div class="text-center tertiary-color">Comece agora mesmo a salvar suas URL do <i class="primary-color glyphicon glyphicon-heart"></i></div>
+
                         </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="user-email">Email</label>
-                            <input type="text" name="user-email" placeholder="Digite seu email" class="user-email form-control" id="user-email">
+                        <div class="form-top-right">
+                            <i class="fa fa-pencil"></i>
                         </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="user-password">Senha</label>
-                            <input type="text" name="user-password" placeholder="Digite uma senha" class="user-password form-control" id="user-password">
-                        </div>
-                        {% if signUpError is defined  %}
-                        <div class="alert alert-danger text-center">
-                            {{ signUpError }}
-                        </div>
-                        {% endif %}
-                        <button type="submit" class="btn btn-block primary-color-bkg">Cadastrar</button>
-                    </form>
-                </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="{{url_for('auth.signUp')}}" method="post" class="registration-form">
+                            <div class="form-group">
+                                <label class="sr-only" for="user-name">Nome</label>
+                                <input type="text" name="user-name" placeholder="Digite seu nome " class="user-name form-control" id="user-name">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="user-email">Email</label>
+                                <input type="email" name="user-email" placeholder="Digite seu email" class="user-email form-control" id="user-email">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="user-password">Senha</label>
+                                <input type="text" name="user-password" placeholder="Digite uma senha" class="user-password form-control" id="user-password">
+                            </div>
+                            {% if signUpError is defined  %}
+                            <div class="alert alert-danger text-center">
+                                {{ signUpError }}
+                            </div>
+                            {% endif %}
+                            <button type="submit" class="btn btn-block primary-color-bkg">Cadastrar</button>
+                        </form>
+                    </div>
             </div>
-            
         </div>
     </div>
 {% endblock %}

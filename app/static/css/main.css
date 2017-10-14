@@ -16,9 +16,13 @@ h3 {
   margin: 0px 0px 15px 0px;
   text-align: center;
   padding: 5px 0px;
-  border-bottom: 2px solid #009ee2;
+  border-bottom: 2px solid #009EE2;
 }
 
+input.form-control {
+  background-color: white;
+  border-radius: 0px;
+}
 .btn {
   border-radius: 0px;
   text-transform: uppercase;
@@ -35,13 +39,17 @@ h3 {
   text-transform: uppercase;
 }
 
+.middle-box{
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
 
 /* Tela de registro */
-.register {
-  
+.label-register{
+  margin: 30px 0px;
 }
 .sign-up-form-box {
-  background: white;
   border-bottom: 2px solid #758697;
 }
 .register .btn:hover {  

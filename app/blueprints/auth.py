@@ -40,11 +40,9 @@ def signIn():
         'password':info['user-password']
     }
 
-    res = requests.post('http://api:3000/api/sign/in', data=user)
-    print("rest normal")
-    print(res)
+    #res = requests.post('http://api:3000/api/sign/in', data=user)    
 
-    #res = MyRequest.post('/sign/in', user)
+    res = MyRequest.post('/sign/in', user)
     if res.status_code == 200:
         loggedUser = res.json()
         if loggedUser['token'] is not None:

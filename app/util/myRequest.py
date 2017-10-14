@@ -10,6 +10,7 @@ class MyRequest:
     @staticmethod
     def validateAccess(r):
         if r.status_code == 401: # acesso negado
+            session.clear()
             abort(401)
         else:
             return r
