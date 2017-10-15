@@ -10,7 +10,7 @@
                     <nav class="nav-top-links text-right">
                         <div class="user-logged"><i class="glyphicon glyphicon-user"></i> {{user.name}}</div>
                         {% if user.admin == true %}
-                        <a href="" class="admin"> <i class="glyphicon glyphicon-lock"></i> Area Administrativa</a>
+                        <a class="admin" href="{{url_for('admin.index')}}" > <i class="glyphicon glyphicon-lock"></i> Area Administrativa</a>
                         {% endif %}
                         <a class="" href="{{url_for('auth.signOut')}}"><i class="glyphicon glyphicon-log-out"></i> Sair</a>
                     </nav>
@@ -49,7 +49,7 @@
                         {% for bookmark in bookmarkList %}
                         <li class="col-xs-12 bookmark-item">
                             <div class="" role="tab" id="item-{{bookmark._id}}">
-                                <div class="col-xs-12 col-md-8 bookmark-item-title upper tertiary-color"><a class="tertiary-color" href="{{bookmark.url}}" target="_blank" ><i class="glyphicon glyphicon-link"></i> {{bookmark.name}}</a></div>
+                                <div class="col-xs-12 col-md-8 bookmark-item-title upper tertiary-color"><a class="tertiary-color" href="{{bookmark.url}}" target="_blank" ><i class="glyphicon glyphicon-link"></i> {{bookmark.name or bookmark.url}}</a></div>
                                 <div class="col-xs-12 col-md-4 bookmark-item-actions text-right">
                                     <span class="action-item"><a class="primary-color" role="button" data-toggle="collapse" data-parent="#accordion" href="#acordion-{{bookmark._id}}" aria-expanded="true" aria-controls="acordion-{{bookmark._id}}"><i class="glyphicon glyphicon-pencil"></i></a></span>
                                     <span class="action-item"><a class="text-danger" href="{{url_for('bookmark.delete', id=bookmark._id)}}"><i class="glyphicon glyphicon-trash"></i></a></span>

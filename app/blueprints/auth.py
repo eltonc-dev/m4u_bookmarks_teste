@@ -1,6 +1,5 @@
 from ..util.myRequest import MyRequest
 import json
-import requests
 from flask import Flask , request, session , render_template , Blueprint, redirect , url_for
 
 auth_blueprint = Blueprint('auth', __name__)
@@ -59,12 +58,18 @@ def signUp():
         return redirect(url_for('.index'))  
 
     info = request.form
+    admin = 'false'
+    if info.get('user-admin', None) is not None:
+        admin = info['user-admin']
+        
+    print(info)
     user = {
         'name':info['user-name'],
         'email':info['user-email'],
         'password':info['user-password'],
-        'admin':info['user-admin']
+        'admin':admin
     }
+    print(user)
     #res = requests.post('http://api:3000/api/sign/up', data=user)
     res = MyRequest.post('/sign/up',user)
     if res.status_code == 201:
