@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 var bookmarkSchema = new Schema({
   owner: {type: String, required: true},  
-  name: { type: String, required: true },
+  name: { type: String },
   url: { type: String, required: true },
   created_at: Date
 });

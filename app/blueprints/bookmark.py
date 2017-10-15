@@ -1,5 +1,5 @@
 import json
-from flask import Flask , request, session , render_template , Blueprint, redirect , url_for
+from flask import Flask , flash, request, session , render_template , Blueprint, redirect , url_for
 from ..util.myRequest import MyRequest
 
 bookmark_blueprint = Blueprint('bookmark', __name__)
@@ -20,7 +20,8 @@ def create():
 
     if res.status_code != 201:
         error = res.json()['message']
-        return redirect(url_for('auth.index', error=error)) 
+        flash(error,'error')
+        return redirect(url_for('auth.index')) 
 
     return redirect(url_for('auth.index')) 
     
@@ -31,7 +32,8 @@ def delete(id):
 
     if res.status_code != 200:
         error = res.json()['message']
-        return redirect(url_for('auth.index', error=error)) 
+        flash(error,'error')
+        return redirect(url_for('auth.index')) 
 
     return redirect(url_for('auth.index'))
 
@@ -52,7 +54,8 @@ def edit(id):
     
     if res.status_code != 200:
         error = res.json()['message']
-        return redirect(url_for('auth.index', error=error)) 
+        flash(error,'error')
+        return redirect(url_for('auth.index')) 
 
     return redirect(url_for('auth.index'))
     

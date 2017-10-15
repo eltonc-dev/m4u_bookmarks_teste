@@ -9,9 +9,10 @@ def index():
     if session.get('logged_user') is None: 
         return redirect(url_for('auth.index'))
     else:
+        
         userList = json.loads('[]') 
         user = json.loads(session['logged_user'])
-        if user['admin'] == 'false':
+        if user['admin'] == False :
             return redirect(url_for('auth.index'))
         else:
             res = MyRequest.get('/v1/users')

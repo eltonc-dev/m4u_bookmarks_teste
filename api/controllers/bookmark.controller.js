@@ -70,7 +70,7 @@ module.exports = {
             if (error) {
 
                 if( error.name == "ValidationError" ) {
-                    response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: owner, name, url")) 
+                    response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: owner , url")) 
                 } else {
                     response.status(400).send(responseMessageFactory.get(401)) 
                 }

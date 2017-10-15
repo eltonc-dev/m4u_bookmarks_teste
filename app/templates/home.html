@@ -38,6 +38,15 @@
                             <button type="submit" class="btn primary-color-bkg btn-block">Cadastrar</button>
                         </div>
                     </form>
+                    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                    {% if errors %}
+                    <div class="col-xs-12 text-danger">
+                        {%- for msg in errors %}
+                        <div class="text-right">{{ msg }}</div>
+                        {% endfor -%}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
                 </div>
             </div>
 
