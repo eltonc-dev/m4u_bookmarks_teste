@@ -4,24 +4,32 @@ Teste de avaliação para a empresa M4U
 ## Tecnologias utilizadas
 
 1. Bando de Dados
-* NoSql - Mongo
+
+    * NoSql - Mongo
+    
 2. API
-* Node.js
-* Express.js 
-* jsonwebtoken
-* bycript
-* mongoose
-* mocha
-* chai
+
+    * Node.js
+    * Express.js 
+    * jsonwebtoken
+    * bycript
+    * mongoose
+    * mocha
+    * chai
+
 3. APP
-* Python
-* Flask
-* requests
+
+    * Python
+    * Flask
+    * requests
+
 4. Ambiente
-* docker
-* * Container Mongo: 3.4
-* * Container Node: 8.1
-* * Container uwsgi-nginx-flask + Python 3.6
+
+    * docker
+    
+    * * Container Mongo: 3.4
+    * * Container Node: 8.1
+    * * Container uwsgi-nginx-flask + Python 3.6
 
 ## Instalação
 
