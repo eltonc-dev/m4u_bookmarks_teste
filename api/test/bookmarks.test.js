@@ -1,4 +1,4 @@
-var bookMarkTest = {
+let bookMarkTest = {
     owner:"123456",
     name:"bookmark test",
     url:"http://www.teste.com.br"
@@ -83,7 +83,7 @@ describe("Rotas de bookmarks" , function(){
                 expect(res.body).to.have.property('email')
                 expect(res.body).to.have.property('_id')
                 expect(res.body).to.have.property('token')
-                var token = res.body.token
+                let token = res.body.token
                 request
                     .get('/api/v1/bookmarks')
                     .set('content-type','application/json')
@@ -106,7 +106,7 @@ describe("Rotas de bookmarks" , function(){
                 expect(res.body).to.have.property('email')
                 expect(res.body).to.have.property('_id')
                 expect(res.body).to.have.property('token')
-                var token = res.body.token
+                let token = res.body.token
                 request
                     .post('/api/v1/bookmarks')
                     .set('content-type','application/json')
@@ -135,7 +135,7 @@ describe("Rotas de bookmarks" , function(){
                 expect(res.body).to.have.property('email')
                 expect(res.body).to.have.property('_id')
                 expect(res.body).to.have.property('token')
-                var token = res.body.token
+                let token = res.body.token
                 request
                     .get('/api/v1/bookmarks/'+bookMarkTest._id)
                     .set('content-type','application/json')
@@ -166,7 +166,7 @@ describe("Rotas de bookmarks" , function(){
                 expect(res.body).to.have.property('email')
                 expect(res.body).to.have.property('_id')
                 expect(res.body).to.have.property('token')
-                var token = res.body.token
+                let token = res.body.token
                 bookMarkTest.name = bookMarkTest.name+" Modificado"
                 request
                     .put('/api/v1/bookmarks/'+bookMarkTest._id)
@@ -196,7 +196,7 @@ describe("Rotas de bookmarks" , function(){
                 expect(res.body).to.have.property('email')
                 expect(res.body).to.have.property('_id')
                 expect(res.body).to.have.property('token')
-                var token = res.body.token
+                let token = res.body.token
                 bookMarkTest.name = bookMarkTest.name+" Modificado"
                 request
                     .get('/api/v1/users/'+bookMarkTest.owner+'/bookmarks')
@@ -220,7 +220,7 @@ describe("Rotas de bookmarks" , function(){
                 expect(res.body).to.have.property('email')
                 expect(res.body).to.have.property('_id')
                 expect(res.body).to.have.property('token')
-                var token = res.body.token
+                let token = res.body.token
                 bookMarkTest.name = bookMarkTest.name+" Modificado"
                 request
                     .delete('/api/v1/bookmarks/'+bookMarkTest._id)

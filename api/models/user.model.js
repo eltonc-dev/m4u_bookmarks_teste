@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 
 const Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+let userSchema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true , select: false },
@@ -15,14 +15,14 @@ var userSchema = new Schema({
 
 userSchema.pre('save', function(next) {
   
-  var currentDate = moment();
+  let currentDate = moment();
   
   if (!this.created_at)
     this.created_at = currentDate;
   
   if( this.isModified('password') ) {
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(this.password, salt);
+    let salt = bcrypt.genSaltSync(10);
+    let hash = bcrypt.hashSync(this.password, salt);
     this.password = hash;
   }
   next();
@@ -38,6 +38,6 @@ userSchema.methods.isAdmin = function(){
 }
 
 // Criando o model User
-var User = mongoose.model('User', userSchema);
+let User = mongoose.model('User', userSchema);
 
 module.exports = User;

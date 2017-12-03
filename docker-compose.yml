@@ -9,6 +9,8 @@ services:
       - dbmongo
     volumes:
       - "./api:/api"
+    ports:
+      - "3000:3000"
     command: bash -c "cd /api && npm install && npm run start"
     
   app:

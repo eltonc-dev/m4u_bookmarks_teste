@@ -1,7 +1,7 @@
-var chai = require('chai');
-var chaiHttp = require('chai-http');
-var should = chai.should();
-var myConfig = require('../config/config')
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const should = chai.should();
+const myConfig = require('../config/config')
  
 chai.use(chaiHttp);
 global.request = chai.request('http://localhost:'+myConfig.serverPort)

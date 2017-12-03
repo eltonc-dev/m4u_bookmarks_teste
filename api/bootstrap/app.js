@@ -1,9 +1,9 @@
-var express  = require('express')
-var bodyParser = require('body-parser')
-var authJWT = require('./../auth/authJWT')
-var authRoutes = require('./../auth/authRoutes')
-var mongoose = require('mongoose')
-var myConfig = require('../config/config')
+const express  = require('express')
+const bodyParser = require('body-parser')
+const authJWT = require('./../auth/authJWT')
+const authRoutes = require('./../auth/authRoutes')
+const mongoose = require('mongoose')
+const myConfig = require('../config/config')
 
 global.myConfig = myConfig
 
@@ -13,9 +13,9 @@ mongoose.connect("mongodb://dbmongo/bookmarks-db" , { useMongoClient: true } );
 mongoose.Promise = global.Promise
 
 //carregando as rotas
-var authRoute = require('./../routes/auth')
-var userRoute = require('./../routes/user')
-var bookmarksRoute = require('./../routes/bookmark')
+const authRoute = require('./../routes/auth')
+const userRoute = require('./../routes/user')
+const bookmarksRoute = require('./../routes/bookmark')
 
 //Inicio o express
 const app = express()

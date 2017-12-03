@@ -1,4 +1,4 @@
-var bookmarkController = require('../controllers/bookmark.controller')
+let bookmarkController = require('../controllers/bookmark.controller')
 
 module.exports = (router) => {
     

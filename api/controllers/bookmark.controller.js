@@ -1,5 +1,5 @@
-var Bookmark = require('../models/bookmark.model')
-var User = require('../models/user.model')
+const Bookmark = require('../models/bookmark.model')
+const User = require('../models/user.model')
 
 const responseMessageFactory = require('../models/responseMessage.model')
 
@@ -16,7 +16,7 @@ module.exports = {
     } ,
 
     bookmarksFromUser(request, response) {
-        var idUser = request.params.id;
+        let idUser = request.params.id;
 
         Bookmark.find({ owner: idUser }, (err, bookmarks) => {
             if (err) {
@@ -44,7 +44,6 @@ module.exports = {
     } ,
 
     save(request, response) {
-        console.log(request.body);
         let newBookmark = Bookmark(request.body)
 
         newBookmark.save( (err) => {
