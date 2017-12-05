@@ -1,5 +1,6 @@
 const jsonwebtoken = require('jsonwebtoken')
 const responseMessageFactory = require('../models/responseMessage.model')
+const config = require('config')
 
 module.exports = 
 {
@@ -10,7 +11,7 @@ module.exports =
             response.status(401).send(responseMessageFactory.get(401));
         } else {
             //console.log(secret);
-            jsonwebtoken.verify(token, myConfig.secret , (error, decoded) => {
+            jsonwebtoken.verify(token, config.get('auth.secret') , (error, decoded) => {
                 if(!error) {
                     next();
                 } else {
@@ -23,7 +24,7 @@ module.exports =
     } ,
 
     createToken(user) {
-        let token = jsonwebtoken.sign( { user: user }, myConfig.secret, { expiresIn: '8h' } );
+        let token = jsonwebtoken.sign( { user: user }, config.get('auth.secret'), { expiresIn: '8h' } );
         return token;  
     }
 

@@ -1,12 +1,13 @@
 const User  = require('./../models/user.model')
 const responseMessageFactory = require('./../models/responseMessage.model')
+const config = require('config')
 
 module.exports = 
 {
     validateAccess(request , response, next) {
         
         let route = `[${request.method}]:${request.originalUrl}`;
-        if( myConfig.privateRoutes.indexOf(route) < 0 ) {
+        if( config.get('routes.privateRoutes').indexOf(route) < 0 ) {
             //rotas livres
             next() 
         } else {

@@ -1,0 +1,17 @@
+{
+    "db":{
+        "connection":"mongodb://dbmongo/bookmarks-db"
+    },
+    "server":{
+        "port":3000
+    } ,
+    "auth":{
+        "secret":"emequatrou"
+    },
+    "routes":{
+        "privateRoutes":[
+
+        ]
+    }
+
+}

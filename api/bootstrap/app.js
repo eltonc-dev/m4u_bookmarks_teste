@@ -3,13 +3,11 @@ const bodyParser = require('body-parser')
 const authJWT = require('./../auth/authJWT')
 const authRoutes = require('./../auth/authRoutes')
 const mongoose = require('mongoose')
-const myConfig = require('../config/config')
-
-global.myConfig = myConfig
+const config = require('config')
 
 // Inicío o banco
 
-mongoose.connect("mongodb://dbmongo/bookmarks-db" , { useMongoClient: true } );
+mongoose.connect( config.get('db.connection') , { useMongoClient: true } );
 mongoose.Promise = global.Promise
 
 //carregando as rotas
