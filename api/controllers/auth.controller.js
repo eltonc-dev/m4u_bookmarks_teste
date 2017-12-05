@@ -19,7 +19,7 @@ module.exports = {
             .select('+password')
             .exec( function(err, user)  {
                 if (err) {
-                    response.status(400).send(responseMessageFactory.get(400,err));
+                    response.status(500).send(responseMessageFactory.get(500,null,err));
                 } else {
                     if(user) {
                         let result = user.checkPassword(password);
@@ -34,12 +34,12 @@ module.exports = {
                                 created_at:user.created_at,
                                 admin:user.admin
                             }
-                            response.status(200).send(JSON.stringify( returnUser ));
+                            response.status(200).send(responseMessageFactory.get(200,null,returnUser) );
                         } else {
-                            response.status(400).send(responseMessageFactory.get(400,"Usuário e/ou senha inválidos"));
+                            response.status(404).send(responseMessageFactory.get(404,"Usuário e/ou senha inválidos"));
                         }
                     } else {
-                        response.status(400).send(responseMessageFactory.get(400,"Usuário e/ou senha inválidos"));
+                        response.status(404).send(responseMessageFactory.get(404,"Usuário e/ou senha inválidos"));
                     }
                 }
             })
@@ -60,13 +60,13 @@ module.exports = {
             if (err) {
                 switch(err.code) {
                     case 11000:
-                        response.status(400).send(responseMessageFactory.get(400,"Email já cadastrado"))
+                        response.status(400).send(responseMessageFactory.get(400,"Email já cadastrado", err))
                         break
                     default:
                         if( err.name == "ValidationError" ) {
-                            response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: name, email, password")) 
+                            response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: name, email, password",err)) 
                         } else {
-                            response.status(400).send(responseMessageFactory.get(401)) 
+                            response.status(500).send(responseMessageFactory.get(500,null,err)) 
                         }
                         break
                 }
@@ -80,7 +80,7 @@ module.exports = {
                     created_at:newUser.created_at,
                     admin:newUser.admin
                 }
-                response.status(201).send(JSON.stringify( returnUser ));                
+                response.status(201).send(responseMessageFactory.get(201,null,returnUser));                
             }
           });
     }

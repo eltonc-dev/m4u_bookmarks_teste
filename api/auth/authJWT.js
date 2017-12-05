@@ -5,11 +5,7 @@ module.exports =
 {
     validateToken(request , response, next) {
         response.setHeader('Content-Type', 'application/json');
-        
-        console.log("Validate "+request.method+" | "+request.url);
-        
         let token = request.headers['x-access-token'] || request.headers['authentication'];
-        
         if(!token) {
             response.status(401).send(responseMessageFactory.get(401));
         } else {
@@ -18,8 +14,9 @@ module.exports =
                 if(!error) {
                     next();
                 } else {
-                    if(error.name = "TokenExpiredError") error = "Token expirou"
-                    response.status(401).send(responseMessageFactory.get(401,error));
+                    if(error.name = "TokenExpiredError") {
+                        response.status(401).send(responseMessageFactory.get(401,"Token expirou",error));
+                    }
                 }
             })
         }

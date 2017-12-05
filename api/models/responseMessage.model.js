@@ -1,15 +1,26 @@
+
+
 module.exports = {
-    get(code , message ) {
-        error = {
-            code : code,
-            message: message? message : this.getMessage(code)
+
+    get(code , message , data ) {
+        responseStr = {
+            status : code >= 400 ? 'erro' : 'sucesso',
+            message: message? message : this.getMessage(code),
+            data: code >= 400? null : data
         }
-        return error
+        if(code >= 400 & data) {
+            responseStr.error = {
+                code: data.code ? data.code : '00',
+                name: data.name ? data.name : data,
+                message: data.message ? data.message : data
+            }
+        }
+        return responseStr
     } ,
     getMessage(code) {
         switch(code) {
             case 200:
-                return "Sucesso"
+                return "Operação realizada com sucesso"
             case 201:
                 return "Criado com Sucesso"
             case 400:

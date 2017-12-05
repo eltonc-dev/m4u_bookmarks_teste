@@ -8,9 +8,13 @@ module.exports = {
     index(request, response) {
         Bookmark.find({}, (err, bookmarks) => {
             if (err) {
-                response.status(200).send("Não foi possível listar os bookmarks")
+                response.status(500).send(responseMessageFactory.get(500,err))
             } else {
-                response.status(200).send( JSON.stringify(bookmarks) );
+                if(bookmarks.length == 0){
+                    response.status(200).send( responseMessageFactory.get(200,'Nenhum bookmark informado',bookmarks) );
+                } else {
+                    response.status(200).send( responseMessageFactory.get(200,null,bookmarks) );
+                }
             }
         }); 
     } ,
@@ -20,9 +24,13 @@ module.exports = {
 
         Bookmark.find({ owner: idUser }, (err, bookmarks) => {
             if (err) {
-                response.status(200).send("Não foi possível listar os bookmarks do usuário ")
+                response.status(500).send(responseMessageFactory.get(500,err))
             } else {
-                response.status(200).send( JSON.stringify(bookmarks) );
+                if(bookmarks.length == 0){
+                    response.status(200).send( responseMessageFactory.get(200,'Nenhum bookmark informado',bookmarks));
+                } else {
+                    response.status(200).send( responseMessageFactory.get(200,null,bookmarks));
+                }
             }
         }); 
     } ,
@@ -32,12 +40,12 @@ module.exports = {
         
         Bookmark.findById( bookmarkId , (err, bookmark) => {
             if (err) {
-                response.status(404).send( responseMessageFactory.get(404,'Bookmark não encontrado') )
+                response.status(500).send( responseMessageFactory.get(500,null,err) )
             } else {
                 if(bookmark) {
-                    response.status(200).send( JSON.stringify(bookmark) );
+                    response.status(200).send( responseMessageFactory.get(200, null, bookmark) );
                 } else {
-                    response.status(404).send( responseMessageFactory.get(404,'Bookmark não encontrado') )
+                    response.status(404).send( responseMessageFactory.get(404,'Bookmark não encontrado',err) )
                 }
             }
         });
@@ -48,15 +56,13 @@ module.exports = {
 
         newBookmark.save( (err) => {
             if (err) {
-                console.log(err)
                 if( err.name == "ValidationError" ) {
-                    response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: owner, name, url")) 
+                    response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: owner, name, url", err)) 
                 } else {
-                    response.status(400).send(responseMessageFactory.get(401)) 
+                    response.status(500).send(responseMessageFactory.get(500, null, err)) 
                 }
-
             } else {
-                response.status(201).send(newBookmark)
+                response.status(201).send(responseMessageFactory.get(201, null, newBookmark))
             }
         });
     } ,
@@ -64,18 +70,16 @@ module.exports = {
     update(request, response) {
         let bookmarkId = request.params.id
         
-
         Bookmark.findByIdAndUpdate( bookmarkId , { $set: request.body }, { new: true } , ( error, bookmark ) => {
             if (error) {
 
                 if( error.name == "ValidationError" ) {
-                    response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: owner , url")) 
+                    response.status(400).send(responseMessageFactory.get(400,"Campos obrigatórios: owner , url", error)) 
                 } else {
-                    response.status(400).send(responseMessageFactory.get(401)) 
+                    response.status(500).send(responseMessageFactory.get(500, null , error)) 
                 }
-                
             } else {
-                response.status(200).send(bookmark);
+                response.status(200).send(responseMessageFactory.get(200,null,bookmark));
             }
         });
     } ,
@@ -85,9 +89,13 @@ module.exports = {
         
         Bookmark.findByIdAndRemove( bookmarkId , (err , bookmark) => {
             if(err) {
-                response.status(400).send(responseMessageFactory.get(400, err));
+                response.status(500).send(responseMessageFactory.get(500, null, err));
             } else {
-                response.status(200).send(bookmark);
+                if(bookmark){
+                    response.status(200).send(responseMessageFactory.get(200,null,bookmark));
+                } else {
+                    response.status(200).send(responseMessageFactory.get(200,'Nenhum bookmark foi deletado',bookmark));
+                }
             }
         })
     } ,
