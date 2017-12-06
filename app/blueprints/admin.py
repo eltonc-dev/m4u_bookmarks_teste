@@ -17,7 +17,7 @@ def index():
         else:
             res = MyRequest.get('/v1/users')
             if res.status_code == 200:
-                userList = res.json()
+                userList = res.json()['data']
     
     return render_template('admin.html' , user=user,  userList=userList )
 
@@ -30,7 +30,7 @@ def find():
     else:
         res = MyRequest.get('/v1/users')
         if res.status_code == 200:
-            userList = res.json()
+            userList = res.json()['data']
         else:
             userList = json.loads('[]')
 
@@ -41,7 +41,7 @@ def find():
         user = json.loads(session['logged_user'])
         res = MyRequest.get('/v1/users/'+info.get('mybookemark-user',None)+'/bookmarks')
         if res.status_code == 200:
-            bookmarkList = res.json()
+            bookmarkList = res.json()['data']
         else:
             bookmarkList = json.loads('[]')
         

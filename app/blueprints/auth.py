@@ -16,7 +16,7 @@ def index():
 
     res = MyRequest.get('/v1/users/'+user['_id']+'/bookmarks')
     if res.status_code == 200:
-        bookmarkList = res.json()
+        bookmarkList = res.json()['data']
     else:
         bookmarkList = json.loads('[]')
 
@@ -42,10 +42,11 @@ def signIn():
     #res = requests.post('http://api:3000/api/sign/in', data=user)    
 
     res = MyRequest.post('/sign/in', user)
+    
     if res.status_code == 200:
-        loggedUser = res.json()
+        loggedUser = res.json()['data']
         if loggedUser['token'] is not None:
-            session['logged_user'] = res.text
+            session['logged_user'] = json.dumps(loggedUser)
             return redirect(url_for('.index'))
     else:
         info = res.json()['message']
@@ -62,20 +63,20 @@ def signUp():
     if info.get('user-admin', None) is not None:
         admin = info['user-admin']
         
-    print(info)
     user = {
         'name':info['user-name'],
         'email':info['user-email'],
         'password':info['user-password'],
         'admin':admin
     }
-    print(user)
     #res = requests.post('http://api:3000/api/sign/up', data=user)
+    
     res = MyRequest.post('/sign/up',user)
+    
     if res.status_code == 201:
-        loggedUser = res.json()
+        loggedUser = res.json()['data']
         if loggedUser['token'] is not None:
-            session['logged_user'] = res.text
+            session['logged_user'] = json.dumps(loggedUser)
             return redirect(url_for('.index'))
     else:
         info = res.json()['message']

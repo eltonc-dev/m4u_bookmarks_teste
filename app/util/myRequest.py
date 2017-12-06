@@ -18,7 +18,10 @@ class MyRequest:
     @staticmethod
     def getHeaders():
         if session.get('logged_user') is not None:
-            token = json.loads(session['logged_user'])['token']
+            try:
+                token = json.loads(session['logged_user'])['token']
+            except :
+                token = ''
         else:
             token = ''
 
